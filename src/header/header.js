@@ -14,6 +14,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -75,6 +76,10 @@ const useStyles = makeStyles(theme => ({
       display: 'none',
     },
   },
+  fixedHeader:{
+    top: 0,
+    position: 'fixed',
+  }
 }));
 
 export default function Header() {
@@ -113,7 +118,7 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <Link to={'/profile'}><MenuItem onClick={handleMenuClose}>Profile</MenuItem> </Link>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -161,7 +166,7 @@ export default function Header() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.fixedHeader}>
         <Toolbar>
           {/* <IconButton
             edge="start"
@@ -171,9 +176,12 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Link to={'/'}>
+            <Typography className={classes.title} variant="h6" noWrap>
            Honey
           </Typography>
+          </Link>
+          <div className={classes.grow} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -187,13 +195,12 @@ export default function Header() {
               inputProps={{ 'aria-label': 'Search' }}
             />
           </div>
-          <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="Show 4 new mails" color="inherit">
+            {/* <IconButton aria-label="Show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
             <IconButton aria-label="Show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />
